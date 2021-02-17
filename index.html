@@ -1,17 +1,31 @@
 <html>
 <div id="root"></div>
-<script src="https://unpkg.com/react@16.7.0/umd/react.production.min.js"></script>
-<script src="https://unpkg.com/react-dom@16.7.0/umd/react-dom.production.min.js"></script>
-<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="https://unpkg.com/react@16.12.0/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@16.12.0/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone@7.8.3/babel.min.js"></script>
+<script src="https://unpkg.com/prop-types@15.6.1/prop-types.min.js"></script>
 <script type="text/babel">
+
     const rootElement = document.getElementById('root')
-    const Message = props => <div className="message"> {props.children}</div>
+
+    const FullName = props => <div className="fullName">
+        {props.first}
+        {' '}
+        {props.last}
+    </div>
+
+    // when using production this will remove the prop types warnings
+    // react.production.min.js
+    FullName.propTypes = {
+        first: PropTypes.string.isRequired,
+        last: PropTypes.string.isRequired
+    }
+
     const element = <>
-        <Message>Hello</Message>
-        <Message>{' '}</Message>
-        <Message>World !</Message>
-        <span>...</span>
+        <FullName first={"false"} last={true}/>
     </>
+
+    console.dir(FullName)
     ReactDOM.render(element, rootElement)
 </script>
 </html>
