@@ -8,24 +8,17 @@
 
     const rootElement = document.getElementById('root')
 
-    const FullName = props => <div className="fullName">
-        {props.first}
-        {' '}
-        {props.last}
-    </div>
-
-    // when using production this will remove the prop types warnings
-    // react.production.min.js
-    FullName.propTypes = {
-        first: PropTypes.string.isRequired,
-        last: PropTypes.string.isRequired
+    const tickInfo = () => {
+        const time = new Date().toLocaleTimeString();
+        const element = <div>
+            <input value={time}/>
+            <br/>
+            <input value={time}/>
+        </div>
+        ReactDOM.render(element, rootElement)
     }
 
-    const element = <>
-        <FullName first={"false"} last={true}/>
-    </>
-
-    console.dir(FullName)
-    ReactDOM.render(element, rootElement)
+    tickInfo()
+    setInterval(tickInfo, 1000)
 </script>
 </html>
