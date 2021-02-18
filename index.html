@@ -6,44 +6,32 @@
 <script src="https://unpkg.com/prop-types@15.6.1/prop-types.min.js"></script>
 <script type="text/babel">
     const rootElement = document.getElementById('root')
-    const Form = (props) => (
-        <div>
-            <form>
+    const Form = () => {
+        const [name, setName] = React.useState()
+
+        const handleSubmit = (event) => {
+            event.preventDefault();
+            setName(() => event.target.elements.name.value)
+            console.log(name)
+        }
+
+        return <div>
+            <form onSubmit={handleSubmit}>
                 <label htmlFor="name">Enter the name</label>
                 <input
-                    value={props.name}
+                    value={name}
                     id="name"
-                    onChange={props.handleChange}
                 />
+                <button type="submit">Submit</button>
             </form>
-            {props.name ? `Hello ${props.name}` : 'Please enter you name'}
+            {name ? `Hello ${name}` : 'Please enter you name'}
         </div>
-    )
-
-    // custom hook
-    const useLocalStorage = ({key, defaultValue = ''}) => {
-        const [state, setState] = React.useState(
-            () => window.localStorage.getItem(key) || defaultValue)
-
-        // on key value change store the key into the localstorage
-        React.useEffect(() => {
-            window.localStorage.setItem(key, state)
-        }, [key, state])
-
-        // side effect for changing the document title
-        React.useEffect(() => {
-            document.title = `NAME=${state}`
-        });
-
-        return [state, setState]
-    }
-    const Greeting = () => {
-        const key = "name"
-        const [name, setName] = useLocalStorage({key})
-        const handleChange = (event) => setName(event.target.value)
-        return <Form handleChange={handleChange} name={name}/>
     }
 
-    ReactDOM.render(<Greeting/>, rootElement)
+    const App = () => {
+        return <Form/>
+    }
+
+    ReactDOM.render(<App/>, rootElement)
 </script>
 </html>
