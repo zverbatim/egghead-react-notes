@@ -20,15 +20,22 @@
         </div>
     )
 
+    // custom hook
+    const useLocalStorage = ({key, defaultValue = ''}) => {
+        const [state, setState] = React.useState(
+            () => window.localStorage.getItem(key) || defaultValue)
+
+        // on key value change store the key into the localstorage
+        React.useEffect(() => {
+            window.localStorage.setItem(key, state)
+        }, [key, state])
+
+        return [state, setState]
+    }
     const Greeting = () => {
-        // initialize the state with what is in the local storage
-        const [name, setName] = React.useState(() => window.localStorage.getItem('name') || '')
-
-        // on name change store the name into the localstorage
-        React.useEffect(() => {window.localStorage.setItem('name', name)}, [name])
-
+        const key = "name"
+        const [name, setName] = useLocalStorage({key})
         const handleChange = (event) => setName(event.target.value)
-
         return <Form handleChange={handleChange} name={name}/>
     }
 
