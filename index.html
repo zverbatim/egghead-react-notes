@@ -22,7 +22,7 @@
 
     const Greeting = () => {
         // initialize the state with what is in the local storage
-        const [name, setName] = React.useState(window.localStorage.getItem('name') || '')
+        const [name, setName] = React.useState(() => window.localStorage.getItem('name') || '')
 
         // on name change store the name into the localstorage
         React.useEffect(() => window.localStorage.setItem('name', name))
