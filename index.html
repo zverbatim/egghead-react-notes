@@ -25,7 +25,7 @@
         const [name, setName] = React.useState(() => window.localStorage.getItem('name') || '')
 
         // on name change store the name into the localstorage
-        React.useEffect(() => window.localStorage.setItem('name', name))
+        React.useEffect(() => {window.localStorage.setItem('name', name)}, [name])
 
         const handleChange = (event) => setName(event.target.value)
 
