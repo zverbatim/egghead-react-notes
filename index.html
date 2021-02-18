@@ -4,32 +4,16 @@
 <script src="https://unpkg.com/react-dom@16.12.0/umd/react-dom.production.min.js"></script>
 <script src="https://unpkg.com/@babel/standalone@7.8.3/babel.min.js"></script>
 <script src="https://unpkg.com/prop-types@15.6.1/prop-types.min.js"></script>
-<style type="text/css">
-
-    .box {
-        border: 1px solid #4b4b4b;
-
-    }
-
-    .box--small {
-        width: 45px;
-        height: 45px;
-    }
-
-    .box--big {
-        width: 90px;
-        height: 90px;
-    }
-</style>
-
 <script type="text/babel">
     const rootElement = document.getElementById('root')
     const Form = (props) => (
         <div>
             <form>
                 <label htmlFor="name">Enter the name</label>
-                <input id="name"
-                       onChange={props.handleChange}
+                <input
+                    value={props.name}
+                    id="name"
+                    onChange={props.handleChange}
                 />
             </form>
             {props.name ? `Hello ${props.name}` : 'Please enter you name'}
@@ -37,17 +21,15 @@
     )
 
     const Greeting = () => {
-        const [name, setName] = React.useState('')
-        const [name2, setName2] = React.useState('')
+        // initialize the state with what is in the local storage
+        const [name, setName] = React.useState(window.localStorage.getItem('name') || '')
+
+        // on name change store the name into the localstorage
+        React.useEffect(() => window.localStorage.setItem('name', name))
+
         const handleChange = (event) => setName(event.target.value)
-        const handleChange2 = (event) => setName2(event.target.value)
-        return (
-            <span>
-                <Form handleChange={handleChange} name={name}/>
-                <hr/>
-                <Form handleChange={handleChange2} name={name2}/>
-            </span>
-        )
+
+        return <Form handleChange={handleChange} name={name}/>
     }
 
     ReactDOM.render(<Greeting/>, rootElement)
