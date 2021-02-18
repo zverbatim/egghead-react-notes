@@ -30,6 +30,11 @@
             window.localStorage.setItem(key, state)
         }, [key, state])
 
+        // side effect for changing the document title
+        React.useEffect(() => {
+            document.title = `NAME=${state}`
+        });
+
         return [state, setState]
     }
     const Greeting = () => {
