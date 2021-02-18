@@ -1,4 +1,5 @@
 # React class egghead.io notes
+📚 📹 - [Class](https://egghead.io/lessons/react-a-beginners-guide-to-react-introduction)
 
 # Exercises
 Navigate through commits to see each exercise
