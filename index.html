@@ -1,39 +1,36 @@
 <html>
 <div id="root"></div>
 <script src="https://unpkg.com/react@16.12.0/umd/react.development.js"></script>
-<script src="https://unpkg.com/react-dom@16.12.0/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@16.12.0/umd/react-dom.development.js"></script>
 <script src="https://unpkg.com/@babel/standalone@7.8.3/babel.min.js"></script>
 <script src="https://unpkg.com/prop-types@15.6.1/prop-types.min.js"></script>
+<script src="https://unpkg.com/react-error-boundary@1.2.3/dist/umd/react-error-boundary.js"></script>
 <script type="text/babel">
     const rootElement = document.getElementById('root')
-    const Form = () => {
-        const [name, setName] = React.useState('')
 
-        const handleChange = (event) => {
-            setName(event.target.value.toLowerCase())
-        }
+    const ErrorBoundary = ReactErrorBoundary.ErrorBoundary
 
-        const handleSubmit = (event) => {
-            event.preventDefault();
-            console.log(name)
-        }
-
-        return <div>
-            <form onSubmit={handleSubmit}>
-                <label htmlFor="name">Enter the name</label>
-                <input
-                    id="name"
-                    value={name}
-                    onChange={handleChange}
-                />
-                <button type="submit">Submit</button>
-            </form>
-            {name ? `Hello ${name}` : 'Please enter you name'}
+    const ErrorFallBack = ({error}) =>
+        <div>
+            <p>Something went </p>
+            <p>{error.message}</p>
         </div>
+
+    const Bomb = () => {
+        throw new Error("*--O Boom !")
     }
 
     const App = () => {
-        return <Form/>
+        const [explode, setExplode] = React.useState(false)
+        return (
+            <div>
+                <button onClick={() => setExplode(true)}>Explode</button>
+                <br/>
+                <ErrorBoundary FallbackComponent={ErrorFallBack}>
+                    {explode ? <Bomb/> : 'Push the button'}
+                </ErrorBoundary>
+            </div>
+        )
     }
 
     ReactDOM.render(<App/>, rootElement)

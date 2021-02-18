@@ -9,5 +9,6 @@
     <orderEntry type="library" name="react-dom" level="application" />
     <orderEntry type="library" name="@babel/standalone" level="application" />
     <orderEntry type="library" name="prop-types" level="application" />
+    <orderEntry type="library" name="react-error-boundary" level="application" />
   </component>
 </module>
