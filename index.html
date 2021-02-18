@@ -17,24 +17,26 @@
             />
         </form>
 
-    const Last = (props) =>
-        <form>
+    const Last = () => {
+        const [last, setLast] = React.useState('')
+
+        return <form>
             <label htmlFor="last">Last name</label>
             <input name="last"
-                   value={props.last}
-                   onChange={props.handleChange}
+                   value={last}
+                   onChange={(event) => setLast(event.target.value)}
             />
         </form>
+    }
 
     const App = () => {
         const [first, setFirst] = React.useState('')
-        const [last, setLast] = React.useState('')
 
         return (
             <div>
                 <First first={first} handleChange={(event) => setFirst(event.target.value)}/>
-                <Last first={last} handleChange={(event) => setLast(event.target.value)}/>
-                <span>Hello {first} {last}!</span>
+                <Last/>
+                <span>Hello {first}!</span>
             </div>
 
         )
