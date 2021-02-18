@@ -8,31 +8,35 @@
 <script type="text/babel">
     const rootElement = document.getElementById('root')
 
-    const initialState = [
-        {id: 1, name: "foo"},
-        {id: 2, name: "bar"},
-        {id: 3, name: "zoo"}
-    ]
+    const First = (props) =>
+        <form>
+            <label htmlFor="first">First name</label>
+            <input name="first"
+                   value={props.first}
+                   onChange={props.handleChange}
+            />
+        </form>
+
+    const Last = (props) =>
+        <form>
+            <label htmlFor="last">Last name</label>
+            <input name="last"
+                   value={props.last}
+                   onChange={props.handleChange}
+            />
+        </form>
 
     const App = () => {
-        const [items, setItems] = React.useState(() => initialState)
-
-        const deleteItem = ({id}) => {
-            setItems(items.filter(
-                item => item.id !== id
-            ))
-        }
+        const [first, setFirst] = React.useState('')
+        const [last, setLast] = React.useState('')
 
         return (
-            <ul>
-                {items.map(((item) =>
-                    <li
-                        onClick={() => deleteItem(item)}
-                        key={item.id}>
-                        {item.name}
-                    </li>))
-                }
-            </ul>
+            <div>
+                <First first={first} handleChange={(event) => setFirst(event.target.value)}/>
+                <Last first={last} handleChange={(event) => setLast(event.target.value)}/>
+                <span>Hello {first} {last}!</span>
+            </div>
+
         )
     }
 
